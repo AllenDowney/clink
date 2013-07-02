@@ -1,0 +1,12 @@
+*.o
+*~
+*.tar
+*.gz
+
+clink
+clink.1.0
+data
+hack
+tos
+unpv12e
+var
