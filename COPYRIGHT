@@ -1,0 +1,55 @@
+Copyright information for CLINK
+-------------------------------
+
+Clink was written by Allen Downey (downey@colby.edu), based on
+pathchar, a similar program written by Van Jaconbson.  The interface
+of clink is based on the interface of pathchar, and the underlying
+mechanism is based on Jacobson's description of pathchar.  No pathchar
+source code is included in clink.  I think there are no copyright
+issues with respect to pathchar, but I would like to acknowledge
+my debt to Van Jacobson for his ideas, his description of pathchar
+in his slides, and the "look and feel" of pathchar, which I
+emulated (although with significant modifications).
+
+Clink is also based on trout, which is a simple version of traceroute
+written by Allen Downey, but which is heavily based on the version of
+traceroute W. Richard Stevens presents in "UNIX Network Programming
+Volume 1, Second Edition Networking APIs: Sockets and XTI," Prentice
+Hall PTR, Upper Saddle River, NJ 07458.
+
+The copyright for Stevens's version of traceroute is held by Prentice
+Hall, but they make it available under a license that is more or less
+identical to the GNU GPL.  Therefore I think it is legal for me to
+make clink available under the GNU GPL (explained below).
+
+With all that explanation, then...
+
+
+clink is Copyright (C) 1999 Allen B. Downey.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+Or contact the author:
+
+	Allen Downey
+	Colby College
+	5850 Mayflower Hill
+	Waterville, ME 04901
+	downey@colby.edu
+	http://www.cs.colby.edu/~downey
+
+
+
+

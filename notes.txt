@@ -1,0 +1,26 @@
+Wed Dec 27 17:37:57 EST 2000
+
+Checking out the effect of the contents of the packet on the
+estimated performance of the T1.
+
+With all zeros:
+
+clink to www.lcs.mit.edu (18.24.10.46)
+  8 probes at each of 93 sizes (28 to 1500 by 16)
+0 localhost
+|       n=  744  lat= 0.299 ms  bw= (4.927, 4.959, 4.968) Mb/s
+1 roto.wellesley.edu (149.130.11.2)
+|       n=  744  lat= 1.509 ms  bw= (1.542, 1.559, 1.557) Mb/s
+2 s4-1-0-15-0.cambridge1-cr18.bbnplanet.net (4.1.138.165)
+
+With all 'U' (ascii code 0x55 = 01010101):
+
+clink to www.lcs.mit.edu (18.24.10.46)
+  8 probes at each of 93 sizes (28 to 1500 by 16)
+0 localhost
+|       n=  744  lat= 0.315 ms  bw= (4.487, 4.563, 4.526) Mb/s
+1 roto.wellesley.edu (149.130.11.2)
+|       n=  744  lat= 1.484 ms  bw= (1.602, 1.616, 1.628) Mb/s
+2 s4-1-0-15-0.cambridge1-cr18.bbnplanet.net (4.1.138.165)
+
+With all 255:

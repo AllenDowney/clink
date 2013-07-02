@@ -1,0 +1,62 @@
+Thu Jun 24
+
+I have a version of traceroute (called trout) that puts a timestamp in
+outgoing messages twice, once before invoking endto, and once in the
+kernel (in udp.c).  The difference between the timestamps is pretty
+consistently near 11us, although sometimes as low as 10us, often 12 or
+13, and occasionally as high as 18us.
+
+Interestingly, the first one is consistently on the big side
+(like 17us), which suggests that there might be some setup that
+happens the first time you send a UDP datagram.
+
+In the case where Sendto fails, the difference is 348us, which
+implies that we should put on a new timestamp when sendto fails!
+(Did it, and that fixed the problem).
+
+I doesn't seem like the delay on the outgoing end adds any
+significant variance, and certainly not anything that wouldn't
+get handled by minumum filtering.  On the other hand, it is possible
+that there is more variance on the receiving end, since there
+might be a significant delay between the arrival of the packet and
+waking up the recipient process.
+
+Ok, I've added time stamps on the back end, and sure enough, the
+delays are significantly longer and more variable.  In fact, they
+seem to be bimodal, with one mode near 180us and the other near
+720us.  The two modes are roughly equally likely, although it
+might be true that the longer mode is more likely for the longer
+transit times.
+
+Possible explanation: the short delay occurs if trout is spinning;
+the long delay occurs if trout blocks.  The longer the rtt, the
+more likely trout has blocked.
+
+Other possibility: trout always blocks, but the longer the rtt,
+the more likely that something else runs in the interim, and
+the more of trout's cache state has been kicked out?
+
+Fri Jun 25
+
+Oops!  When I take out the printk commands, the discrepacy in
+timestamps on the return path gets _much_ smaller, like
+40-60us, although still with a pretty good amount of variation.
+
+Hard to say whether that is going to contribute a significant
+amount of noise to the measurements.
+
+Next step: measure the distribution of outgoing and incoming
+delays for packets as a function of #links, starting with loopback.
+
+Also, add code that handles non-root running gracefully and 
+detects the absence of kernel-level timestamps.
+
+Mon Jun 28
+
+It would be a good idea to send out a bunch of packets with
+and without mangled TOS, and see if there is a difference in
+performance.
+
+I might be a good idea to change the signal for the outgoing
+packets to be just the TOS bits, and make the record as small
+as possible (actually, zero is possible).
