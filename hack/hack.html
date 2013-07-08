@@ -1,0 +1,87 @@
+<body bgcolor=white><table width=500 cellpadding=20><tr><td>
+
+<title>Kernel-level timestamps in clink</title>
+
+<h1>Kernel-level timestamps in clink</h1>
+
+Allen B. Downey
+
+<p><hr>
+
+<p>
+As part of a research project pertaining to bandwidth estimation
+in wide-area networks, I wrote a program called clink that is
+a reimplementation of Van Jacobson's pathchar.
+
+<p>
+One of the experiments I performed involved kernel-level timestamps.
+That is, when the kernel is preparing an outgoing UDP packet, it
+sneaks a timestamp into the packet, and when an incoming ICMP packet
+arrives, the kernel sneaks another timestamp in.
+
+<p>
+The advantage of this system is that it eliminates two sources of
+delay from the measured elapsed time:
+
+<ol>
+
+<li> The time between when a process writes an outgoing packet
+and when the OS actually sends the packet.
+
+<li> The time between the arrival of a packet and the time when
+the receiving process is scheduled.
+
+</ol>
+
+<p>
+In general, we expect these delays to be small compared with
+delays in the network.  I didn't make a thorough study of the
+effect of kernel-level measurements, but my initial impression
+was that they were not likely to provide a significant benefit
+for the application I was working on, and I abandoned the
+technique.
+
+<p>
+Here is a <a href="downey03hack.tar.gz">compressed tar file</a>
+that contains the following files:
+
+<pre>
+collect.c     The data collection module of clink
+udp.c         A slightly modified version of the file
+	      from the Linux kernel source.
+icmp.c        A slightly modified version of the file
+	      from the Linux kernel source.
+</pre>
+
+<p>
+I orginally made these changes in Red Hat Linux 6.2.
+I don't remember what Linux kernel that was.
+
+<p>
+In order to reimplement this hack, it would be best to
+look at the changes I made in udp.c and icmp.c and make
+similar changes in the current versions of the same files.
+
+<p>
+You can find the changes by searching for the string
+"Allen" in the source files.
+
+<p>
+There is good documentation elsewhere on how to recompile
+and install the modified kernel.
+
+<p>
+As far as I know, these hacks don't interfere with the normal
+function of udp and icmp.  They only affect packets that happen
+to have the string "&lt;clink!&gt;" in the packet body.  I suppose
+that could happen by accident, but it's unlikely.
+
+<p>
+To see the interface to the timestamps from user code, see
+collect.c in the clink source code, and search for the string
+"kernel".
+
+<p>
+<hr>
+
+</table>
