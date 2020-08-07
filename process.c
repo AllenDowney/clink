@@ -1,4 +1,6 @@
 #include "clink.h"
+#include "util.h"
+#include "collect.h"
 #include <math.h>
 #include <assert.h>
 
@@ -29,6 +31,7 @@ int probe_count;     /* how many probes have we sent to this link so far? */
 
 int num_fiddles;     /* how many times we fiddle with the data */
 
+int send_one_probe (int size, int ttl);
 /* paths: the big, hairy data structure that contains all the data
           we've collected.  paths is an array of Path structures;
 	  each one contains alternate paths, but at the end we only
@@ -982,7 +985,7 @@ int fiddle_link (Link *link)
   int i, ret;
   int n = 0;
 
-  if (link == NULL) return;
+  if (link == NULL) return -1;
 
   /* get more data for any size with a positive residual */
   process_link (link);
@@ -1348,7 +1351,7 @@ void clink_loop ()
 
 /* main: process the options and call the appropriate procedures */
 
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
   int i, c;
 
