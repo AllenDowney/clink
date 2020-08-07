@@ -1,3 +1,4 @@
+#pragma once
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/time.h>
@@ -18,6 +19,7 @@
 #include <sys/un.h>
 #include <stdarg.h>
 #include <syslog.h>
+#include <unistd.h>
 
 /* maximum message size */
 #define MAX_SIZE 3000

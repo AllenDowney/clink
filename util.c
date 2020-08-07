@@ -1,4 +1,4 @@
-#include "clink.h"
+#include "util.h"
 
 /* the vast majority of the following are taken directly from
    the library of procedures Stevens presents in UNIX Network
@@ -9,7 +9,6 @@
 
 */
 
-#define MAXLINE 4096
 
 void err_doit (int errnoflag, int level, const char *fmt, va_list ap)
 {
