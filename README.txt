@@ -18,17 +18,6 @@ written by Allen Downey, but which is heavily based on the version of
 traceroute Richard Stevens presents in his book UNIX Network
 Programming: Volume 1, Second Edition.
 
-For Copyright information, see the file named COPYRIGHT that
-should have been included with this distribution or contact:
-
-	Allen Downey
-	Colby College
-	5850 Mayflower Hill
-	Waterville, ME 04901
-	downey@colby.edu
-	http://www.cs.colby.edu/~downey
-
-
 
 Information about pathchar and clink:
 
