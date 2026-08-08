@@ -21,6 +21,13 @@
 #include <syslog.h>
 #include <unistd.h>
 
+#ifdef __APPLE__
+#define ICMP_TIME_EXCEEDED ICMP_TIMXCEED
+#define ICMP_DEST_UNREACH ICMP_UNREACH
+#define ICMP_EXC_TTL ICMP_TIMXCEED_INTRANS
+#define ICMP_PORT_UNREACH ICMP_UNREACH_PORT
+#endif
+
 /* maximum message size */
 #define MAX_SIZE 3000
 
