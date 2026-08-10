@@ -100,8 +100,13 @@ int process_ip (struct ip *ip, int len)
   hlen2 = hip->ip_hl << 2;
   udp = (struct udphdr *) (recvbuf + hlen1 + 8 + hlen2);
 
+#ifdef __APPLE__
+  if (udp->uh_sport != htons (sport)) return 0;
+  if (udp->uh_dport != htons (dport)) return 0;
+#else
   if (udp->source != htons (sport)) return 0;
   if (udp->dest != htons (dport)) return 0;
+#endif
 
   /* now we know it's an ICMP packet caused by a UDP
      datagram sent by us and sent to the port we happen to
@@ -318,7 +323,9 @@ int send_probe (int size, int ttl, int timeout, Datum *datum)
      an explanation of weird UDP asynchronous errors.
  */
 
+#ifdef SO_BSDCOMPAT
   Setsockopt (sendfd, SOL_SOCKET, SO_BSDCOMPAT, &flag, sizeof(int));
+#endif
 
   do {
     send_dgram (datalen, ttl);
