@@ -171,9 +171,11 @@ Sigfunc *signal(int signo, Sigfunc *func)
   act.sa_handler = func;
   sigemptyset(&act.sa_mask);
   act.sa_flags = 0;
+#ifdef SA_INTERRUPT
   if (signo == SIGALRM) {
     act.sa_flags |= SA_INTERRUPT;     /* SunOS 4.x (and Linux, apparently) */
   }
+#endif
   if (sigaction(signo, &act, &oact) < 0)
     return(SIG_ERR);
   return(oact.sa_handler);
