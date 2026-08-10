@@ -15,6 +15,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <getopt.h>
 #include <sys/un.h>
 #include <stdarg.h>
